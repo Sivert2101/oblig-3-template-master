@@ -98,15 +98,18 @@ public class SBinTre<T> {
 
         // p er nå null, dvs. ute av treet, q er den siste vi passerte
 
-        p = new Node<>(verdi);                   // oppretter en ny node
+        p = new Node<>(verdi,q);                   // oppretter en ny node
 
-        if (q == null) rot = p;                  // p blir rotnode
+        /*if (q == null) rot = p;                  // p blir rotnode
         else{
             if (cmp < 0) q.venstre = p;         // venstre barn til q
             else q.høyre = p;                   // høyre barn til q
             p.forelder = q;                     // forelder til p er q
+        }*/
 
-        }
+        if (q == null) rot = p;                  // p blir rotnode
+        else if (cmp < 0) q.venstre = p;         // venstre barn til q
+        else q.høyre = p;                        // høyre barn til q
 
         antall++;                                // én verdi mer i treet
         return true;                             // vellykket innlegging
@@ -150,7 +153,6 @@ public class SBinTre<T> {
 
         antall--;   // det er nå én node mindre i treet
         return true;
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     public int fjernAlle(T verdi) {
