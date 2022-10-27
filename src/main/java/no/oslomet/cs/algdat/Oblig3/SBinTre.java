@@ -160,16 +160,20 @@ public class SBinTre<T> {
     }
 
     public int antall(T verdi) {
-        Node<T> p = rot;
-        Node<T> q = null;
-        int cmp = 0;
+        Node<T> p = rot, q = null;
         while (p != null)       // fortsetter til p er ute av treet
         {
             q = p;                                 // q er forelder til p
-            cmp = comp.compare(verdi,p.verdi);     // bruker komparatoren
-            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
+            p = q.venstre;
+            antall++;
         }
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (q.venstre != null) {
+            antall++;
+        }
+        if (q.høyre != null) {
+            antall++;
+        }
+        return antall;
     }
 
     public void nullstill() {
