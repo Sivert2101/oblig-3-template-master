@@ -161,19 +161,20 @@ public class SBinTre<T> {
 
     public int antall(T verdi) {
         Node<T> p = rot, q = null;
-        while (p != null)       // fortsetter til p er ute av treet
-        {
-            q = p;                                 // q er forelder til p
-            p = q.venstre;
-            antall++;
+        int navn = 0;
+        while (p != null){          //fortsetter til man har gått gjonnom treet
+            int cmp = comp.compare(verdi,p.verdi);      //sammenligner
+            if(cmp < 0){            //
+                p = p.venstre;
+            }
+            else{
+                if(cmp == 0){
+                    navn++;
+                }
+                p = p.høyre;
+            }
         }
-        if (q.venstre != null) {
-            antall++;
-        }
-        if (q.høyre != null) {
-            antall++;
-        }
-        return antall;
+        return navn;
     }
 
     public void nullstill() {
