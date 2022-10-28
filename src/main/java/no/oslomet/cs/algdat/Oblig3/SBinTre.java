@@ -160,8 +160,8 @@ public class SBinTre<T> {
     }
 
     public int antall(T verdi) {
-        Node<T> p = rot, q = null;
-        int navn = 0;
+        Node<T> p = rot;
+        int teller = 0;
         while (p != null){          //fortsetter til man har gått gjonnom treet
             int cmp = comp.compare(verdi,p.verdi);      //sammenligner
             if(cmp < 0){            //
@@ -169,12 +169,12 @@ public class SBinTre<T> {
             }
             else{
                 if(cmp == 0){
-                    navn++;
+                    teller++;
                 }
                 p = p.høyre;
             }
         }
-        return navn;
+        return teller;
     }
 
     public void nullstill() {
