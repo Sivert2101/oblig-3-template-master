@@ -182,6 +182,8 @@ public class SBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
+        Objects.requireNonNull(p);
+
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
