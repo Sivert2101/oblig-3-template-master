@@ -186,7 +186,7 @@ public class SBinTre<T> {
         while(true) {
             if (p.venstre != null) {
                 p = p.venstre;
-            } else if (p.høyre != null) {
+            } else if(p.høyre != null) {
                 p = p.høyre;
             } else {
                 return p;
@@ -195,14 +195,16 @@ public class SBinTre<T> {
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node<T> q = p;
-        if (p.forelder != null) {
-            if (p.høyre != null || p.venstre == q) {
-                p = p.høyre;
-                return førstePostorden(p);
-            }
+        Node<T> q = p.forelder;
+        if(q == null){      //returnere null hvis hvis q er null
+            return null;
         }
-        return p;
+        if(q.høyre == p || q.høyre == null){ //returnerer q hvis q.høyre er p eller null
+            return q;
+        }
+        else{
+            return førstePostorden(q.høyre);
+        }
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
