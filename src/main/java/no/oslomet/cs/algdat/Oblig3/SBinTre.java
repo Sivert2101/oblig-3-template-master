@@ -208,7 +208,13 @@ public class SBinTre<T> {
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
-        
+        Node<T> p = rot;
+        Node<T> f = førstePostorden(p); //finner den første postordenen
+        oppgave.utførOppgave(f.verdi);
+        while (f.forelder != null){
+            f = nestePostorden(f);
+            oppgave.utførOppgave(Objects.requireNonNull(f).verdi);
+        }
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
