@@ -100,13 +100,6 @@ public class SBinTre<T> {
 
         p = new Node<>(verdi,q);                   // oppretter en ny node
 
-        /*if (q == null) rot = p;                  // p blir rotnode
-        else{
-            if (cmp < 0) q.venstre = p;         // venstre barn til q
-            else q.høyre = p;                   // høyre barn til q
-            p.forelder = q;                     // forelder til p er q
-        }*/
-
         if (q == null) rot = p;                  // p blir rotnode
         else if (cmp < 0) q.venstre = p;         // venstre barn til q
         else q.høyre = p;                        // høyre barn til q
@@ -163,7 +156,7 @@ public class SBinTre<T> {
         Node<T> p = rot;
         int teller = 0;
         while (p != null){          //fortsetter til man har gått gjonnom treet
-            int cmp = comp.compare(verdi,p.verdi);      //sammenligner
+            int cmp = comp.compare(verdi,p.verdi);      //sammenligner verdi og p.verdi
             if(cmp < 0){            //
                 p = p.venstre;
             }
@@ -174,7 +167,7 @@ public class SBinTre<T> {
                 p = p.høyre;
             }
         }
-        return teller;
+        return teller; //returnerer antall av verdien som er funnet
     }
 
     public void nullstill() {
@@ -183,7 +176,7 @@ public class SBinTre<T> {
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
         Objects.requireNonNull(p);      //sjekker at p ikke er null
-        while(true) {
+        while(true) {                   //lopper gjennom til p blir returnert
             if (p.venstre != null) {
                 p = p.venstre;
             } else if(p.høyre != null) {
@@ -195,25 +188,25 @@ public class SBinTre<T> {
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node<T> q = p.forelder;
-        if(q == null){      //returnere null hvis hvis q er null
+        Node<T> q = p.forelder; //setter q til p.forelder
+        if(q == null){          //returnere null hvis hvis q er null
             return null;
         }
         if(q.høyre == p || q.høyre == null){ //returnerer q hvis q.høyre er p eller null
             return q;
         }
         else{
-            return førstePostorden(q.høyre);
+            return førstePostorden(q.høyre); //returnerer førstepostorden
         }
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
-        Node<T> p = rot;
+        Node<T> p = rot;                //setter p til rot
         Node<T> f = førstePostorden(p); //finner den første postordenen
-        oppgave.utførOppgave(f.verdi);
-        while (f.forelder != null){
-            f = nestePostorden(f);
-            oppgave.utførOppgave(Objects.requireNonNull(f).verdi);
+        oppgave.utførOppgave(f.verdi);  //utfører oppgave
+        while (f.forelder != null){     //går gjennom til f.forelder er null
+            f = nestePostorden(f);      //finner nestepostorden
+            oppgave.utførOppgave(Objects.requireNonNull(f).verdi);  //utfører oppgave og passer på at den ikke er null
         }
     }
 
